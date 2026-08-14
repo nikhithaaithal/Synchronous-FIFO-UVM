@@ -16,37 +16,30 @@ class fifo_driver_rd extends uvm_driver #(trans);
  endfunction
 task run_phase (uvm_phase phase);
  begin
+   
   forever begin
     seq_item_port.get_next_item(req);
-      drive(req);
+    @(vif.drv_rd_cb);
+    vif.drv_rd_cb.rd_cs  <= req.rd_cs;
+    vif.drv_rd_cb.rd_en  <= req.rd_en;
+    vif.drv_rd_cb.wr_cs  <= req.wr_cs;
+    vif.drv_rd_cb.wr_en  <= req.wr_en;
+  
+`uvm_info("READ DRIVER",
+          $sformatf("rd_cs=%0d, rd_en=%0d",
+                     req.rd_cs,
+                     req.rd_en
+                    ),
+          UVM_LOW)
+
+ // vif.drv_rd_cb.rd_cs  <=0;
+  //vif.drv_rd_cb.rd_en  <=0;
+    
     seq_item_port.item_done();
   end
  end
 endtask
 
 
-task drive(trans data2duv);
-begin
- @(vif.drv_rd_cb);
- vif.drv_rd_cb.rd_cs  <= data2duv.rd_cs;
- vif.drv_rd_cb.rd_en  <= data2duv.rd_en;
- @(vif.drv_rd_cb);
- //vif.drv_rd_cb.rd_cs  <=0;
- //vif.drv_rd_cb.rd_en  <=0;
-`uvm_info("READ DRIVER",
-          $sformatf("rd_cs=%0d, rd_en=%0d",
-                     vif.drv_rd_cb.rd_cs,
-                     vif.drv_rd_cb.rd_en
-                    ),
-          UVM_LOW)
-end
-endtask
+
 endclass
-
-
-
-
-
-
-
-

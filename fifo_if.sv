@@ -10,21 +10,26 @@ logic full;
 logic empty;
 
 clocking drv_wr_cb @(posedge clk);
- default input #1 output#0;
+ default input #0 output#0;
  output wr_cs;
  output wr_en;
  output data_in;
+  output rd_cs;
+ output rd_en;
  endclocking
 
 
 clocking drv_rd_cb @(posedge clk);
- default input #1 output#0;
+ default input #0 output#0;
  output rd_cs;
  output rd_en;
+   output wr_cs;
+ output wr_en;
+ output data_in;
  endclocking
 
 clocking mon_wr_cb @(posedge clk);
- default input #1 output#0;
+ default input #0 output#0;
  input wr_cs;
  input wr_en;
  input data_in;
@@ -32,7 +37,7 @@ clocking mon_wr_cb @(posedge clk);
  endclocking
 
 clocking mon_rd_cb @(posedge clk);
- default input #1 output#0;
+ default input #0 output#0;
  input rd_cs;
  input rd_en;
  input empty;
@@ -44,5 +49,3 @@ modport DRV_RD (clocking drv_rd_cb);
 modport MON_WR (clocking mon_wr_cb);
 modport MON_RD (clocking mon_rd_cb);
 endinterface
-
-

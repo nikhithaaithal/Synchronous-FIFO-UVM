@@ -24,7 +24,7 @@ function void connect_phase(uvm_phase phase);
 task run_phase(uvm_phase phase);
 
 forever begin
-duv2mon=trans::type_id::create("duv2mon");
+
 collect_data();
 
 end
@@ -34,7 +34,11 @@ endtask
 task collect_data();
 begin
 @(vif.mon_wr_cb);
+
+  
 if(vif.mon_wr_cb.wr_cs && vif.mon_wr_cb.wr_en) begin
+ // @(vif.mon_wr_cb);
+    duv2mon=trans::type_id::create("duv2mon");
 duv2mon.wr_cs    = vif.mon_wr_cb.wr_cs;
 duv2mon.wr_en    = vif.mon_wr_cb.wr_en;
 duv2mon.data_in  = vif.mon_wr_cb.data_in;
@@ -52,5 +56,3 @@ end
 
 endtask
 endclass
-
-

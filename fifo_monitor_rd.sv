@@ -24,7 +24,7 @@ function void connect_phase(uvm_phase phase);
 task run_phase(uvm_phase phase);
 
 forever begin 
-duv2monr=trans::type_id::create("duv2monr");
+
 collect_data();
 
 end
@@ -34,19 +34,21 @@ endtask
 task collect_data();
 begin
  @(vif.mon_rd_cb);
+  
 if(vif.mon_rd_cb.rd_cs && vif.mon_rd_cb.rd_en) begin
-
+ // @(vif.mon_rd_cb);
+duv2monr=trans::type_id::create("duv2monr");
 duv2monr.rd_cs    = vif.mon_rd_cb.rd_cs;
 duv2monr.rd_en    = vif.mon_rd_cb.rd_en;
 duv2monr.empty    = vif.mon_rd_cb.empty;
-@(vif.mon_rd_cb);
+ //@(vif.mon_rd_cb);
 duv2monr.data_out = vif.mon_rd_cb.data_out;
 rd_monitor_port.write(duv2monr);
 `uvm_info("READ_MONITOR",
           $sformatf("rd_cs=%0d, rd_en=%0d, data_out=%0d, empty=%0d",
                     duv2monr.rd_cs,
                     duv2monr.rd_en,
-                    duv2monr.data_out,
+                    vif.mon_rd_cb.data_out,
                     duv2monr.empty),
           UVM_LOW)
 end
@@ -54,5 +56,3 @@ end
 
 endtask
 endclass
-
-

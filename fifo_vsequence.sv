@@ -8,9 +8,21 @@ class fifo_vsequence extends uvm_sequence;
  task body();
  fifo_seq_wr wr_seq;
  fifo_seq_rd rd_seq;
+ fifo_seq_wr_rd s1;
+ fifo_seq_rd_wd s2;
  wr_seq=fifo_seq_wr::type_id::create("wr_seq");
  rd_seq=fifo_seq_rd::type_id::create("rd_seq");
+   
+ s1=fifo_seq_wr::type_id::create("wr_seq");
+ s2=fifo_seq_rd::type_id::create("rd_seq");
+   
  wr_seq.start(p_sequencer.fifo_wr_seqr);
  rd_seq.start(p_sequencer.fifo_rd_seqr);
+
+   $display("*******************************************");
+  fork 
+ wr_seq.start(p_sequencer.fifo_wr_seqr);
+ rd_seq.start(p_sequencer.fifo_rd_seqr);
+  join
 endtask
 endclass
