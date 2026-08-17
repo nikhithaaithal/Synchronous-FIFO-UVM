@@ -2,7 +2,7 @@
 `include "fifo_if.sv"
 `include "syn_fifo.v"
 `include "test_pkg.sv"
-
+`include "fifo_assertion.sv"
 
 module fifo_top();
 import uvm_pkg::*;
@@ -25,6 +25,7 @@ rst=0;
 end
 
 
+
 syn_fifo #(
 	.DATA_WIDTH(`DATA_WIDTH),
 	.ADDR_WIDTH(`ADDR_WIDTH)
@@ -41,7 +42,16 @@ syn_fifo #(
 	.full     (duv_if.full)
 );
 
-
+bind syn_fifo fifo_asssertion fifo_assert_inst (
+    .clk    (clk),
+    .rst    (rst),
+    .rd_cs  (rd_cs),
+    .wr_cs  (wr_cs),
+    .rd_en  (rd_en),
+    .wr_en  (wr_en),
+    .full   (full),
+    .empty  (empty)
+);
 initial begin
 uvm_config_db#(virtual fifo_if)::set(null,"uvm_test_top","fifo_if",duv_if);
 run_test("fifo_test");

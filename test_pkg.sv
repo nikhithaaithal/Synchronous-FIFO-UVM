@@ -15,7 +15,7 @@ package test_pkg;
 	`include "fifo_active_agent_rd.sv"
 	`include "fifo_active_agent_wr.sv"
 	`include "fifo_scoreboard.sv"
-        //`include "fifo_subscriber.sv"
+        `include "fifo_subscriber.sv"
 	`include "fifo_env.sv"
 	`include "fifo_sequence.sv"
 	`include "fifo_vsequence.sv"

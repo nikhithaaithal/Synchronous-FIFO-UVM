@@ -32,8 +32,6 @@ task run_phase (uvm_phase phase);
                     ),
           UVM_LOW)
 
- // vif.drv_rd_cb.rd_cs  <=0;
-  //vif.drv_rd_cb.rd_en  <=0;
     
     seq_item_port.item_done();
   end

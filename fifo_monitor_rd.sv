@@ -35,13 +35,12 @@ task collect_data();
 begin
  @(vif.mon_rd_cb);
   
-if(vif.mon_rd_cb.rd_cs && vif.mon_rd_cb.rd_en) begin
- // @(vif.mon_rd_cb);
+//if(vif.mon_rd_cb.rd_cs && vif.mon_rd_cb.rd_en) begin
+
 duv2monr=trans::type_id::create("duv2monr");
 duv2monr.rd_cs    = vif.mon_rd_cb.rd_cs;
 duv2monr.rd_en    = vif.mon_rd_cb.rd_en;
 duv2monr.empty    = vif.mon_rd_cb.empty;
- //@(vif.mon_rd_cb);
 duv2monr.data_out = vif.mon_rd_cb.data_out;
 rd_monitor_port.write(duv2monr);
 `uvm_info("READ_MONITOR",
@@ -51,7 +50,7 @@ rd_monitor_port.write(duv2monr);
                     vif.mon_rd_cb.data_out,
                     duv2monr.empty),
           UVM_LOW)
-end
+//end
 end
 
 endtask

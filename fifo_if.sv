@@ -14,7 +14,7 @@ clocking drv_wr_cb @(posedge clk);
  output wr_cs;
  output wr_en;
  output data_in;
-  output rd_cs;
+ output rd_cs;
  output rd_en;
  endclocking
 
@@ -23,7 +23,7 @@ clocking drv_rd_cb @(posedge clk);
  default input #0 output#0;
  output rd_cs;
  output rd_en;
-   output wr_cs;
+ output wr_cs;
  output wr_en;
  output data_in;
  endclocking

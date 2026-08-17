@@ -5,9 +5,9 @@ class trans extends uvm_sequence_item;
   rand bit wr_en;
   rand bit rd_en;
   randc logic [`DATA_WIDTH-1:0]data_in;
-  rand logic [`DATA_WIDTH-1:0]data_out;
-  rand logic full;
-  rand logic empty;
+  logic [`DATA_WIDTH-1:0]data_out;
+  logic full;
+  logic empty;
 
  `uvm_object_utils_begin(trans)
 

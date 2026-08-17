@@ -17,10 +17,18 @@ endfunction
 
  function void write_wr(trans wr);
 //reset
+
+
+
+
    if(queue.size()!=`RAM_DEPTH && wr.wr_en ==1 && wr.wr_cs ==1)
     begin
     queue.push_back(wr.data_in);
     `uvm_info(get_type_name(),"writing data",UVM_MEDIUM)
+   `uvm_info("SCOREBOARD",
+          $sformatf("data_in= %d ",
+                    wr.data_in),
+          UVM_LOW)
     end
    if(queue.size()==`RAM_DEPTH )
     begin
